@@ -1,0 +1,22 @@
+/* Highlight Class */
+.domElemContainer *:hover{
+	cursor: pointer;
+}
+.domElemContainer .highlight{
+	border: 2px #ccc solid;
+}
+.savedata{
+	position: fixed;
+	right: 0;
+	text-align: right;
+	display: block;
+	z-index: 999;
+	padding: 0;
+}
+.savedata .btn{
+	width: 100%;
+	border-radius: 0;
+}
+.top{
+	top: 0;
+}

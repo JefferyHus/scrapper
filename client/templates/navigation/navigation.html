@@ -1,0 +1,17 @@
+<template name="navigation">
+	<div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation"><a href="{{pathFor route='home'}}">Home</a></li>
+            {{#if currentUser}}
+            <li role="presentation"><a href="#" class="logout">Logout</a></li>
+            <li role="presentation"><a href="{{pathFor route='scrape'}}">Scrapper</a></li>
+            <li role="presentation"><a href="{{pathFor route='mytrackedlist'}}">My Tracked List</a></li>
+            {{else}}
+            <li role="presentation"><a href="{{pathFor route='login'}}">Login</a></li>
+            {{/if}}
+          </ul>
+        </nav>
+        <h3 class="text-muted">Alerti</h3>
+    </div>
+</template>
