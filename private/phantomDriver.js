@@ -10,8 +10,8 @@ var xpath = system.args[2];
 var page = require('webpage').create();
 page.open(url, function () {
     var nodeElem = page.evaluate(function(path) {
-	  return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.innerHTML;;
+	  return document.evaluate(path, document, null, XPathResult.STRING_TYPE, null).stringValue;
 	},xpath);
-	console.log(nodeElem);
+	console.log(nodeElem.innerHtml);
     phantom.exit();
 });
