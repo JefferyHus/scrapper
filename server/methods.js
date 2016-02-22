@@ -88,8 +88,22 @@ Meteor.methods({
 	},
 	scrapeThisUrlByXpath: function(url, xpath, id = null){
 		try{
-			var phantom = Meteor.npmRequire('phantom');
-			return "blue";
+	        command = UrlWatcher.spawn(UrlWatcher.phantomjs.path, ['assets/app/phantomDriver.js', url, xpath]);
+	        var response = false;
+
+	        command.stdout.on('data', function (data) {
+	            response = data;
+	        });
+	        command.stderr.on('data', function (data) {
+	            console.log('stderr: ' + data);
+	            response = data;
+	        });
+	        command.on('exit', function (code) {
+	            process.exit(code);
+	        });
+
+	        if(response)
+	        	return response;
 		}catch(e){
 			return e;
 		}

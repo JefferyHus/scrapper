@@ -26,13 +26,13 @@ Template.trackedelement.events({
 
 		$(e.currentTarget).html("<i class='fa fa-spinner fa-spin'>");
 		
+		console.log(xpath, url);
+
 		Meteor.call('scrapeThisUrlByXpath', url, xpath,function(err, result){
 			if(err)
 				console.log(err);
 			else{
-				$(e.currentTarget).html('<i class="fa fa-line-chart"></i>');
 				template.elemStats.set(result);
-				console.log(result);
 			}
 		});
 	}
@@ -42,4 +42,15 @@ Template.trackedelement.onCreated(function(){
 	var self =  this;
 	//the Reactive var to get element
 	self.elemStats = ReactiveVar(null);
+});
+//Template onRendered
+Template.trackedelement.onRendered(function(){
+	var self = this;
+
+	self.autorun(function(){
+		var elemSt = self.elemStats.get();
+		if(!jQuery.isEmptyObject(elemSt))
+			$('.getStats').html('<i class="fa fa-line-chart"></i>');
+		console.log(self.elemStats.get(),'loading');
+	});
 });
