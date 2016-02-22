@@ -10,7 +10,7 @@ var xpath = system.args[2];
 var page = require('webpage').create();
 page.open(url, function () {
     var nodeElem = page.evaluate(function(path) {
-	  return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+	  return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.innerHTML;;
 	},xpath);
 	console.log(nodeElem);
     phantom.exit();

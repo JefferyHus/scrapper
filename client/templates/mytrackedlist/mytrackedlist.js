@@ -52,6 +52,5 @@ Template.trackedelement.onRendered(function(){
 		var elemSt = self.elemStats.get();
 		if(!jQuery.isEmptyObject(elemSt))
 			$('.getStats').html('<i class="fa fa-line-chart"></i>');
-		console.log(self.elemStats.get(),'loading');
 	});
 });

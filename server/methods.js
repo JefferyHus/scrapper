@@ -88,12 +88,8 @@ Meteor.methods({
 	},
 	scrapeThisUrlByXpath: function(url, xpath, id = null){
 		try{
-
-	        return Meteor.wrapAsync(
-	        	Meteor.functions.phantomjs(xpath, url)
-	        );
-
-
+			//call Async function
+			var result = Meteor.functions.phantomjs(xpath, url);
 		}catch(e){
 			return e;
 		}
