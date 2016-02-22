@@ -91,7 +91,7 @@ Meteor.methods({
 			//call Sync function
 			var result = Meteor.functions.phantomjs(xpath, url);
 
-			return result.toString();
+			return result;
 		}catch(e){
 			return e;
 		}

@@ -23,6 +23,8 @@ Template.trackedelement.events({
 
 		var xpath 	= $(e.currentTarget).data('xpath');
 		var url 	= $(e.currentTarget).data('url');
+		//check if the value has been changed
+		var value 	= $(e.currentTarget).data('value');
 
 		$(e.currentTarget).html("<i class='fa fa-spinner fa-spin'>");
 		
@@ -33,7 +35,9 @@ Template.trackedelement.events({
 				console.log(err);
 			else{
 				template.elemStats.set(result);
-				console.log(result);
+				//show alert of new value
+				if(value !== template.elemStats.get())
+					console.log("the value has been changed, the new value is: "+template.elemStats.get());
 			}
 		});
 	}
@@ -50,7 +54,8 @@ Template.trackedelement.onRendered(function(){
 
 	self.autorun(function(){
 		var elemSt = self.elemStats.get();
-		if(!jQuery.isEmptyObject(elemSt))
+		if(!jQuery.isEmptyObject(elemSt)){
 			$('.getStats').html('<i class="fa fa-line-chart"></i>');
+		}
 	});
 });

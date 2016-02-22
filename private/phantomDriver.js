@@ -12,6 +12,6 @@ page.open(url, function () {
     var nodeElem = page.evaluate(function(path) {
 	  return document.evaluate(path, document, null, XPathResult.STRING_TYPE, null).stringValue;
 	},xpath);
-	console.log(nodeElem.innerHtml);
+	console.log(nodeElem);
     phantom.exit();
 });
