@@ -129,15 +129,30 @@ Meteor.methods({
 		return trackedElements.find({userId: Meteor.userId()});
 	},
 	runTest: function (options) {
-        command = UrlWatcher.spawn(UrlWatcher.phantomjs.path, ['assets/app/phantomDriver.js', "http://github.com/"]);
-        command.stdout.on('data', function (data) {
-            console.log('stdout: ' + data);
-        });
-        command.stderr.on('data', function (data) {
-            console.log('stderr: ' + data);
-        });
-        command.on('exit', function (code) {
-            console.log('child process exited with code ' + code);
-        });
-    }
+        var result = testing();
+        console.log(result);
+        return result;
+    },
 });
+
+// For testing
+testing = function() {
+	var getResult = function(url, callback) {
+		command = UrlWatcher.spawn(UrlWatcher.phantomjs.path, ['assets/app/phantomDriver.js', url]);
+	    command.stdout.on('data', function (data) {
+	        // Return here
+	        callback && callback ( null, data );
+	    });
+	    command.stderr.on('data', function (data) {
+	    	// Error return here
+	        callback && callback ( data, null );
+	    });
+	    command.on('exit', function (code) {
+	        console.log('child process exited with code ' + code);
+	    });
+	};
+
+	var getResultSynchronously =  Meteor.wrapAsync(getResult); 
+	var result = getResultSynchronously("http://github.com/");
+	return result;
+};
