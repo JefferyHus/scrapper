@@ -123,5 +123,17 @@ Meteor.methods({
 
 		//return results
 		return trackedElements.find({userId: Meteor.userId()});
-	}
+	},
+	runTest: function (options) {
+        command = UrlWatcher.spawn(UrlWatcher.phantomjs.path, ['assets/app/phantomDriver.js', "http://github.com/"]);
+        command.stdout.on('data', function (data) {
+            console.log('stdout: ' + data);
+        });
+        command.stderr.on('data', function (data) {
+            console.log('stderr: ' + data);
+        });
+        command.on('exit', function (code) {
+            console.log('child process exited with code ' + code);
+        });
+    }
 });
