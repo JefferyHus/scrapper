@@ -33,6 +33,7 @@ Template.trackedelement.events({
 				console.log(err);
 			else{
 				template.elemStats.set(result);
+				console.log(result);
 			}
 		});
 	}
