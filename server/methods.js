@@ -133,22 +133,25 @@ Meteor.methods({
 
 // For testing
 testing = function() {
-	var getResult = function(url, callback) {
-		command = UrlWatcher.spawn(UrlWatcher.phantomjs.path, ['assets/app/phantomDriver.js', url]);
+	var getResult = function(url, xpath, callback) {
+		command = UrlWatcher.spawn(UrlWatcher.phantomjs.path, ['assets/app/phantomDriver.js', url, xpath]);
 	    command.stdout.on('data', function (data) {
 	        // Return here
-	        callback && callback ( null, data );
+	        callback && callback ( null, data.toString() );
 	    });
 	    command.stderr.on('data', function (data) {
 	    	// Error return here
-	        callback && callback ( data, null );
+	        callback && callback ( data.toString(), null );
 	    });
 	    command.on('exit', function (code) {
 	        console.log('child process exited with code ' + code);
 	    });
 	};
 
+	var url = "https://developer.mozilla.org/en-US/docs/Introduction_to_using_XPath_in_JavaScript";
+	var xpath = '//*[@id="wikiArticle"]/ul[1]/li[3]/ul/li[3]/a';
+
 	var getResultSynchronously =  Meteor.wrapAsync(getResult); 
-	var result = getResultSynchronously("http://github.com/");
+	var result = getResultSynchronously(url, xpath);
 	return result;
 };
